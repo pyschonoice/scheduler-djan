@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ employee.user.username }}</h1>
+    <p>Status: {{ employee.get_status_display }}</p>
+    <p>Probation End Date: {{ employee.probation_end_date }}</p>
+    {% if employee.probation_end_date <= now and employee.status == 'probation' %}
+        <p>Your probation period has ended. Please wait for employer decision.</p>
+    {% else %}
+        <p>Your probation is ongoing.</p>
+    {% endif %}
+
+    <br><br>
+    <div>
+        <a href="{% url 'logout' %}" style="padding: 8px 12px; background: #ddd; text-decoration: none; border: 1px solid #ccc;">Logout</a>
+    </div>
+
+    
+</body>
+</html>
