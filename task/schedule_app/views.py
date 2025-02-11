@@ -76,9 +76,17 @@ def employer_dashboard(request):
     # Only allow access to superusers (the employer)
     if not request.user.is_superuser:
         return redirect('employee_dashboard')
-    employees = Employee.objects.filter(status='probation', is_request_sent=True)
+    
+    # Create three querysets by filtering the Employee model:
+    pending_employees = Employee.objects.filter(status='probation', is_request_sent=True)
+    accepted_employees = Employee.objects.filter(status='full_time')
+    rejected_employees = Employee.objects.filter(status='rejected')
+    
+    # Create a context dictionary with three separate context variables:
     context = {
-        'employees': employees,
+        'pending_employees': pending_employees,
+        'accepted_employees': accepted_employees,
+        'rejected_employees': rejected_employees,
     }
     return render(request, 'schedule_app/employer_dashboard.html', context)
 

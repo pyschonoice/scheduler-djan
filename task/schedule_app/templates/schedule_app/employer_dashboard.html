@@ -2,12 +2,27 @@
 <html>
 <head>
     <title>Employer Dashboard</title>
+
+    <style>
+        /* Styles for the employee boxes and divider */
+        .employee-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .divider {
+            margin: 20px 0;
+            border-top: 2px solid #333;
+        }
+    </style>
 </head>
 <body>
     <h1>Employer Dashboard</h1>
+    <div class="divider"></div>
+   
     <h2>Employees Pending Decision</h2>
-    {% for employee in employees %}
-        <div style="border:1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+    {% for employee in pending_employees %}
+        <div class="employee-box">
             <p><strong>Employee:</strong> {{ employee.user.username }}</p>
             <p><strong>Probation End Date:</strong> {{ employee.probation_end_date }}</p>
             <p><strong>Status:</strong> {{ employee.get_status_display }}</p>
@@ -17,15 +32,46 @@
                 <button name="action" value="reject">Reject</button>
                 <br><br>
                 <label>Extend Probation (days):</label>
-                <input type="number" name="extend_days" min="1" > 
+                <input type="number" name="extend_days" min="1">
                 <button name="action" value="extend">Extend Probation</button>
             </form>
         </div>
     {% empty %}
         <p>No pending decisions.</p>
     {% endfor %}
-        <br><br>
-    <div >
+
+    <!-- Divider between sections -->
+    <div class="divider"></div>
+
+   
+    <h2>Accepted Employees</h2>
+    {% for employee in accepted_employees %}
+        <div class="employee-box">
+            <p><strong>Employee:</strong> {{ employee.user.username }}</p>
+            <p><strong>Probation End Date:</strong> {{ employee.probation_end_date }}</p>
+            <p><strong>Status:</strong> {{ employee.get_status_display }}</p>
+        </div>
+    {% empty %}
+        <p>No accepted employees.</p>
+    {% endfor %}
+
+    <!-- Divider between sections -->
+    <div class="divider"></div>
+
+    
+    <h2>Rejected Employees</h2>
+    {% for employee in rejected_employees %}
+        <div class="employee-box">
+            <p><strong>Employee:</strong> {{ employee.user.username }}</p>
+            <p><strong>Probation End Date:</strong> {{ employee.probation_end_date }}</p>
+            <p><strong>Status:</strong> {{ employee.get_status_display }}</p>
+        </div>
+    {% empty %}
+        <p>No rejected employees.</p>
+    {% endfor %}
+
+    <br><br>
+    <div>
         <a href="{% url 'logout' %}" style="padding: 8px 12px; background: #ddd; text-decoration: none; border: 1px solid #ccc;">Logout</a>
     </div>
 </body>
