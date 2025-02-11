@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from .models import Employee
-from .tasks import check_probation_periods
+
 
 def home(request):
     return render(request, 'schedule_app/home.html',{})
@@ -14,7 +14,6 @@ def home(request):
 def register(request):
     """
     Registration view for employee users.
-    Optionally, after registration you can create an Employee profile.
     """
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -51,7 +50,7 @@ def login_view(request):
     return render(request, 'schedule_app/login.html', {'form': form})
 
 def logout_view(request):
-    """Logs out the current user."""
+   
     logout(request)
     return redirect('home')
 
@@ -59,7 +58,7 @@ def logout_view(request):
 def employee_dashboard(request):
     """
     Display the logged-in employee's status and probation end date.
-    Only employees who have an associated Employee record should see this.
+    This view is intended for employees.
     """
     employee = get_object_or_404(Employee, user=request.user)
     context = {
