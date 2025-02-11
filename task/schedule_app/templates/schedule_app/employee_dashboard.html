@@ -10,7 +10,13 @@
     {% if employee.probation_end_date <= now and employee.status == 'probation' %}
         <p>Your probation period has ended. Please wait for employer decision.</p>
     {% else %}
-        <p>Your probation is ongoing.</p>
+        {%if employee.status == 'full_time'%}
+            <p>You are employed! Congratulations.</p>
+        {%elif employee.status == 'rejected' %}
+            <p>You are rejected.</p>
+        {%else%}
+            <p>Your probation is ongoing.</p>
+        {%endif%}
     {% endif %}
 
     <br><br>

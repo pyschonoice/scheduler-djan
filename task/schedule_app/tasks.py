@@ -19,7 +19,7 @@ def check_probation_periods():
         print(f"Probation period ended for {employee.user.username}. Notification sent to employer.")
 
 
-# to run celery worker celery -A task worker --loglevel=info
-#celery -A task worker --pool=solo --loglevel=info windows
-# to run celery beat celery -A task beat --loglevel=info
+# To run celery worker celery -A task worker --loglevel=info
+# For windows use this so as to use less cpu : celery -A task worker --pool=solo --loglevel=info 
+# To run celery beat celery -A task beat --loglevel=info
 
